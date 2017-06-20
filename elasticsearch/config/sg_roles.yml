@@ -37,8 +37,10 @@ sg_logstash:
     - indices:admin/template/put
     - CLUSTER_MONITOR
     - CLUSTER_COMPOSITE_OPS
+  # This is not working, must use admin for now
   indices:
-    'logstash-*':
+    '*logs-*':
       '*':
         - CRUD
         - CREATE_INDEX
+        - indices:admin/create

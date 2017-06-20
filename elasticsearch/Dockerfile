@@ -1,12 +1,14 @@
 # https://github.com/elastic/elasticsearch-docker
-FROM docker.elastic.co/elasticsearch/elasticsearch:5.4.1
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.4.0
 
 COPY config/ config/
 COPY bin/ bin/
-
+USER root
+RUN chown -R elasticsearch:elasticsearch config/*
+USER elasticsearch
 # Search Guard plugin
 # https://github.com/floragunncom/search-guard/wiki
-RUN elasticsearch-plugin install --batch com.floragunn:search-guard-5:5.4.1-12 \
+RUN elasticsearch-plugin install --batch com.floragunn:search-guard-5:5.4.0-12 \
 	&& chmod +x \
 		plugins/search-guard-5/tools/hash.sh \
 		plugins/search-guard-5/tools/sgadmin.sh
